@@ -6,14 +6,14 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 11:38:24 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/19 16:25:42 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/19 17:23:53 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 /*
-**	File functions : OK
+**	File functions
 */
 int		init_file(t_file **file, int fd)
 {
@@ -28,7 +28,7 @@ int		init_file(t_file **file, int fd)
 }
 
 /*
-**	String functions : OK
+**	String functions
 */
 ssize_t		cat_buf(char **line, t_file *file)
 {
@@ -60,9 +60,9 @@ ssize_t		cat_buf(char **line, t_file *file)
 }
 
 /*
-**	Return functions : OK
+**	Return functions
 */
-int		output(t_output type, char **line, t_file **file)
+int		out(t_out type, char **line, t_file **file)
 {
 	if (type == error_f_line)
 	{
@@ -74,7 +74,7 @@ int		output(t_output type, char **line, t_file **file)
 	{
 		free(*file);
 		*file = NULL;
-		return (output(error_f_line, line, file));
+		return (out(error_f_line, line, file));
 	}
 	if (type == eol)
 	{
@@ -83,7 +83,7 @@ int		output(t_output type, char **line, t_file **file)
 	}
 	if (type == eof)
 	{
-		output(error_f_line_file, line, file);
+		out(error_f_line_file, line, file);
 		return (0);
 	}
 	return (-1);
@@ -101,20 +101,20 @@ int		get_next_line(int fd, char **line)
 	**line = '\0';
 	if (!file || fd != file->fd)
 		if (!init_file(&file, fd))
-			return (output(error_f_line, line, &file));
+			return (out(error_f_line, line, &file));
 	while (file->buf_i >= file->buf_size || file->buf[file->buf_i] != '\n')
 	{
 		if (file->buf_i >= file->buf_size)
 		{
 			if ((file->buf_size = read(fd, file->buf, BUFFER_SIZE)) == -1)
-				return (output(error_f_line_file, line, &file));
+				return (out(error_f_line_file, line, &file));
 			if (!file->buf_size)
-				return (**line ? output(eol, line, &file) : output(eof, line, &file));
+				return (**line ? out(eol, line, &file) : out(eof, line, &file));
 			file->buf_i = 0;
 		}
 		if ((file->cat_size = cat_buf(line, file)) == -1)
-			return (output(error_f_line_file, line, &file));
+			return (out(error_f_line_file, line, &file));
 		file->buf_i += file->cat_size;
 	}
-	return (output(eol, line, &file));
+	return (out(eol, line, &file));
 }
