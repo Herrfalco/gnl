@@ -6,29 +6,24 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 11:38:24 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/19 17:23:53 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/19 23:58:42 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 /*
-**	File functions
+**	File functions :
 */
-int		init_file(t_file **file, int fd)
+void	init_file(t_file *file, int fd)
 {
-	if (*file)
-		free(*file);
-	if (!(*file = malloc(sizeof(t_file))))	
-		return (0);
-	(*file)->fd = fd;
-	(*file)->buf_size = BUFFER_SIZE;
-	(*file)->buf_i = (*file)->buf_size;
-	return (1);
+	file->fd = fd;
+	file->buf_sz = BUFFER_SIZE;
+	file->buf_i = file->buf_sz;
 }
 
 /*
-**	String functions
+**	String functions :
 */
 ssize_t		cat_buf(char **line, t_file *file)
 {
@@ -42,7 +37,7 @@ ssize_t		cat_buf(char **line, t_file *file)
 	while ((*line)[len_a])
 		len_a++;	
 	len_b = 0;
-	while (file->buf_i + len_b < file->buf_size
+	while (file->buf_i + len_b < file->buf_sz
 		&& file->buf[file->buf_i + len_b] != '\n')
 		len_b++;
 	if (!(new = malloc((len_a + len_b + 1) * sizeof(char))))
@@ -60,61 +55,56 @@ ssize_t		cat_buf(char **line, t_file *file)
 }
 
 /*
-**	Return functions
+**	Return functions :
 */
-int		out(t_out type, char **line, t_file **file)
+int		out(t_out type, int fd, char **line, t_file *file)
 {
-	if (type == error_f_line)
+	if (type == error)
 	{
 		free(*line);
 		*line = NULL;
 		return (-1);
 	}
-	if (type == error_f_line_file)
-	{
-		free(*file);
-		*file = NULL;
-		return (out(error_f_line, line, file));
-	}
 	if (type == eol)
 	{
-		(*file)->buf_i++;
+		file.buf_i++;
 		return (1);
 	}
 	if (type == eof)
 	{
-		out(error_f_line_file, line, file);
+		free(*line);
+		*line = NULL;
+		file.fd = -1;
 		return (0);
 	}
 	return (-1);
 }
 
 /*
-**	Principal function
+**	Principal function :
 */
 int		get_next_line(int fd, char **line)
 {
-	static t_file		*file = NULL; 
+	static t_file		f;
 
 	if (BUFFER_SIZE < 1 || fd < 0 || !line || !(*line = malloc(sizeof(char))))
 		return (-1);
 	**line = '\0';
-	if (!file || fd != file->fd)
-		if (!init_file(&file, fd))
-			return (out(error_f_line, line, &file));
-	while (file->buf_i >= file->buf_size || file->buf[file->buf_i] != '\n')
+	if (f.fd == -1)
+		init_file(&f, fd);
+	while (f.buf_i >= f.buf_sz || f.buf[f.buf_i] != '\n')
 	{
-		if (file->buf_i >= file->buf_size)
+		if (f.buf_i >= f.buf_sz)
 		{
-			if ((file->buf_size = read(fd, file->buf, BUFFER_SIZE)) == -1)
-				return (out(error_f_line_file, line, &file));
-			if (!file->buf_size)
-				return (**line ? out(eol, line, &file) : out(eof, line, &file));
-			file->buf_i = 0;
+			if ((f.buf_sz = read(fd, f.buf, BUFFER_SIZE)) == -1)
+				return (out(error, fd, line, &f));
+			if (!f.buf_sz)
+				return (**line ? 1 : out(eof, fd, line, &f));
+			f.buf_i = 0;
 		}
-		if ((file->cat_size = cat_buf(line, file)) == -1)
-			return (out(error_f_line_file, line, &file));
-		file->buf_i += file->cat_size;
+		if ((f.cat_sz = cat_buf(line, &f)) == -1)
+			return (out(error, fd, line, &f));
+		f.buf_i += f.cat_sz;
 	}
-	return (out(eol, line, &file));
+	return (out(eol, fd, line, &f));
 }

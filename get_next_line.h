@@ -6,12 +6,12 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 02:53:56 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/19 17:24:18 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/19 23:47:37 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <fcntl.h>
 # include <unistd.h>
@@ -21,18 +21,16 @@ typedef enum		e_out
 {
 	eol,
 	eof,
-	error,
-	error_f_line,
-	error_f_line_file
+	error
 }					t_out;
 
 typedef struct		s_file
 {
-	int					fd;	
-	char				buf[BUFFER_SIZE];
-	ssize_t				buf_i;
-	ssize_t				buf_size;
-	ssize_t				cat_size;
+	int				fd;
+	char			buf[BUFFER_SIZE];
+	ssize_t			buf_i;
+	ssize_t			buf_sz;
+	ssize_t			cat_sz;
 }					t_file;
 
 int					get_next_line(int fd, char **line);
