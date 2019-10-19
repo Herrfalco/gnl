@@ -6,11 +6,11 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 11:38:24 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/19 23:58:42 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/20 00:09:09 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 /*
 **	File functions :
@@ -57,7 +57,7 @@ ssize_t		cat_buf(char **line, t_file *file)
 /*
 **	Return functions :
 */
-int		out(t_out type, int fd, char **line, t_file *file)
+int		out(t_out type, char **line, t_file *file)
 {
 	if (type == error)
 	{
@@ -67,14 +67,14 @@ int		out(t_out type, int fd, char **line, t_file *file)
 	}
 	if (type == eol)
 	{
-		file.buf_i++;
+		file->buf_i++;
 		return (1);
 	}
 	if (type == eof)
 	{
 		free(*line);
 		*line = NULL;
-		file.fd = -1;
+		file->fd = -1;
 		return (0);
 	}
 	return (-1);
@@ -97,14 +97,14 @@ int		get_next_line(int fd, char **line)
 		if (f.buf_i >= f.buf_sz)
 		{
 			if ((f.buf_sz = read(fd, f.buf, BUFFER_SIZE)) == -1)
-				return (out(error, fd, line, &f));
+				return (out(error, line, &f));
 			if (!f.buf_sz)
-				return (**line ? 1 : out(eof, fd, line, &f));
+				return (**line ? 1 : out(eof, line, &f));
 			f.buf_i = 0;
 		}
 		if ((f.cat_sz = cat_buf(line, &f)) == -1)
-			return (out(error, fd, line, &f));
+			return (out(error, line, &f));
 		f.buf_i += f.cat_sz;
 	}
-	return (out(eol, fd, line, &f));
+	return (out(eol, line, &f));
 }

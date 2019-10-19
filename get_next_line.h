@@ -6,12 +6,12 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 02:53:56 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/19 23:47:37 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/20 00:06:58 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # include <fcntl.h>
 # include <unistd.h>
