@@ -6,7 +6,7 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 11:46:31 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/20 15:44:34 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/20 17:16:53 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@ int		main(void)
 
 	
 	fd = open("tests/file", O_RDONLY);
+	while (get_next_line(fd, &line))
+	{
+		printf("%s\n", line);
+		free(line);
+	}
+	close(fd);
+	fd = open("tests/file2", O_RDONLY);
 	while (get_next_line(fd, &line))
 	{
 		printf("%s\n", line);
