@@ -6,7 +6,7 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 11:38:24 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/20 00:09:09 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/20 13:41:32 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,12 @@ int		out(t_out type, char **line, t_file *file)
 */
 int		get_next_line(int fd, char **line)
 {
-	static t_file		f;
+	static t_file		f = { -1, { 0 }, 0, 0, 0 };
 
 	if (BUFFER_SIZE < 1 || fd < 0 || !line || !(*line = malloc(sizeof(char))))
 		return (-1);
 	**line = '\0';
-	if (f.fd == -1)
+	if (f.fd != fd)
 		init_file(&f, fd);
 	while (f.buf_i >= f.buf_sz || f.buf[f.buf_i] != '\n')
 	{
