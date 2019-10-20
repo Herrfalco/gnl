@@ -6,14 +6,13 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 02:53:56 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/20 00:06:58 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/20 15:43:47 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
 
@@ -34,5 +33,8 @@ typedef struct		s_file
 }					t_file;
 
 int					get_next_line(int fd, char **line);
+void				init_file(t_file *file, int fd);
+ssize_t				cat_buf(char **line, t_file *file);
+int					out(t_out type, char **line, t_file *file);
 
 #endif
