@@ -6,7 +6,7 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 15:39:11 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/20 15:41:43 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/20 22:01:37 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	init_file(t_file *file, int fd)
 /*
 **	String function :
 */
-ssize_t		cat_buf(char **line, t_file *file)
+int			cat_buf(char **line, t_file *file)
 {
-	ssize_t	len_a;
-	ssize_t	len_b;
-	ssize_t	i;
-	ssize_t	j;
+	int		len_a;
+	int		len_b;
+	int		i;
+	int		j;
 	char	*new;
 
 	len_a = 0;

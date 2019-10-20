@@ -6,7 +6,7 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 02:53:56 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/20 17:08:58 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/20 22:03:00 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-# define MAX_FD		1024
+# define MAX_FD		256	
 
 typedef enum		e_out
 {
@@ -29,9 +29,9 @@ typedef struct		s_file
 {
 	int				used;
 	char			buf[BUFFER_SIZE];
-	ssize_t			buf_i;
-	ssize_t			buf_sz;
-	ssize_t			cat_sz;
+	int				buf_i;
+	int				buf_sz;
+	int				cat_sz;
 }					t_file;
 
 int					get_next_line(int fd, char **line);

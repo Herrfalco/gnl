@@ -6,7 +6,7 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 02:53:56 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/20 15:43:47 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/20 22:01:12 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ typedef struct		s_file
 {
 	int				fd;
 	char			buf[BUFFER_SIZE];
-	ssize_t			buf_i;
-	ssize_t			buf_sz;
-	ssize_t			cat_sz;
+	int				buf_i;
+	int				buf_sz;
+	int				cat_sz;
 }					t_file;
 
 int					get_next_line(int fd, char **line);
 void				init_file(t_file *file, int fd);
-ssize_t				cat_buf(char **line, t_file *file);
+int					cat_buf(char **line, t_file *file);
 int					out(t_out type, char **line, t_file *file);
 
 #endif
