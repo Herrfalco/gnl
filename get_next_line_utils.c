@@ -6,25 +6,19 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 15:39:11 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/20 22:01:37 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/21 09:18:55 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/*
-**	File function :
-*/
-void	init_file(t_file *file, int fd)
+void		init_file(t_file *file, int fd)
 {
 	file->fd = fd;
 	file->buf_sz = BUFFER_SIZE;
 	file->buf_i = file->buf_sz;
 }
 
-/*
-**	String function :
-*/
 int			cat_buf(char **line, t_file *file)
 {
 	int		len_a;
@@ -35,7 +29,7 @@ int			cat_buf(char **line, t_file *file)
 
 	len_a = 0;
 	while ((*line)[len_a])
-		len_a++;	
+		len_a++;
 	len_b = 0;
 	while (file->buf_i + len_b < file->buf_sz
 		&& file->buf[file->buf_i + len_b] != '\n')
@@ -48,16 +42,13 @@ int			cat_buf(char **line, t_file *file)
 	free(*line);
 	j = -1;
 	while (++j < len_b)
-		new[i + j] = file->buf[file->buf_i + j];		
+		new[i + j] = file->buf[file->buf_i + j];
 	new[i + j] = '\0';
 	*line = new;
 	return (len_b);
 }
 
-/*
-**	Return function :
-*/
-int		out(t_out type, char **line, t_file *file)
+int			out(t_out type, char **line, t_file *file)
 {
 	if (type == error)
 	{

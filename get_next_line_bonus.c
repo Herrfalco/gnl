@@ -6,15 +6,12 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 11:38:24 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/20 22:02:37 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/21 09:20:05 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-/*
-**	File functions :
-*/
 void	init_file(t_file *files, int fd)
 {
 	files[fd].used = 1;
@@ -22,9 +19,6 @@ void	init_file(t_file *files, int fd)
 	files[fd].buf_i = files[fd].buf_sz;
 }
 
-/*
-**	String functions :
-*/
 int		cat_buf(char **line, t_file *file)
 {
 	int		len_a;
@@ -35,7 +29,7 @@ int		cat_buf(char **line, t_file *file)
 
 	len_a = 0;
 	while ((*line)[len_a])
-		len_a++;	
+		len_a++;
 	len_b = 0;
 	while (file->buf_i + len_b < file->buf_sz
 		&& file->buf[file->buf_i + len_b] != '\n')
@@ -48,15 +42,12 @@ int		cat_buf(char **line, t_file *file)
 	free(*line);
 	j = -1;
 	while (++j < len_b)
-		new[i + j] = file->buf[file->buf_i + j];		
+		new[i + j] = file->buf[file->buf_i + j];
 	new[i + j] = '\0';
 	*line = new;
 	return (len_b);
 }
 
-/*
-**	Return functions :
-*/
 int		out(t_out type, int fd, char **line, t_file *files)
 {
 	if (type == error)
@@ -80,14 +71,11 @@ int		out(t_out type, int fd, char **line, t_file *files)
 	return (-1);
 }
 
-/*
-**	Principal function :
-*/
 int		get_next_line(int fd, char **line)
 {
 	static t_file		f[MAX_FD] = {{ 0, { 0 }, 0, 0, 0 }};
 
-	if (BUFFER_SIZE < 1 || fd < 0 || fd >= MAX_FD || !line 
+	if (BUFFER_SIZE < 1 || fd < 0 || fd >= MAX_FD || !line
 		|| !(*line = malloc(sizeof(char))))
 		return (-1);
 	**line = '\0';
