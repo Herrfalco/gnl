@@ -6,7 +6,7 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 15:39:11 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/21 09:18:55 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/21 16:14:01 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int			out(t_out type, char **line, t_file *file)
 	if (type == error)
 	{
 		free(*line);
-		*line = NULL;
 		return (-1);
 	}
 	if (type == eol)
@@ -63,8 +62,6 @@ int			out(t_out type, char **line, t_file *file)
 	}
 	if (type == eof)
 	{
-		free(*line);
-		*line = NULL;
 		file->fd = -1;
 		return (0);
 	}
