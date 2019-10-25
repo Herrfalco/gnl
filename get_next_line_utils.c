@@ -6,15 +6,12 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 15:39:11 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/20 22:01:37 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/25 21:11:36 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/*
-**	File function :
-*/
 void	init_file(t_file *file, int fd)
 {
 	file->fd = fd;
@@ -22,9 +19,6 @@ void	init_file(t_file *file, int fd)
 	file->buf_i = file->buf_sz;
 }
 
-/*
-**	String function :
-*/
 int			cat_buf(char **line, t_file *file)
 {
 	int		len_a;
@@ -54,15 +48,11 @@ int			cat_buf(char **line, t_file *file)
 	return (len_b);
 }
 
-/*
-**	Return function :
-*/
 int		out(t_out type, char **line, t_file *file)
 {
 	if (type == error)
 	{
 		free(*line);
-		*line = NULL;
 		return (-1);
 	}
 	if (type == eol)
@@ -72,8 +62,6 @@ int		out(t_out type, char **line, t_file *file)
 	}
 	if (type == eof)
 	{
-		free(*line);
-		*line = NULL;
 		file->fd = -1;
 		return (0);
 	}

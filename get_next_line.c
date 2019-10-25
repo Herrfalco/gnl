@@ -6,7 +6,7 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 11:38:24 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/20 15:41:14 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/25 22:07:57 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		get_next_line(int fd, char **line)
 			if ((f.buf_sz = read(fd, f.buf, BUFFER_SIZE)) == -1)
 				return (out(error, line, &f));
 			if (!f.buf_sz)
-				return (**line ? 1 : out(eof, line, &f));
+				return (out(eof, line, &f));
 			f.buf_i = 0;
 		}
 		if ((f.cat_sz = cat_buf(line, &f)) == -1)

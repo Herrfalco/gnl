@@ -6,15 +6,12 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 11:38:24 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/20 22:02:37 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/25 21:06:55 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-/*
-**	File functions :
-*/
 void	init_file(t_file *files, int fd)
 {
 	files[fd].used = 1;
@@ -22,9 +19,6 @@ void	init_file(t_file *files, int fd)
 	files[fd].buf_i = files[fd].buf_sz;
 }
 
-/*
-**	String functions :
-*/
 int		cat_buf(char **line, t_file *file)
 {
 	int		len_a;
@@ -54,9 +48,6 @@ int		cat_buf(char **line, t_file *file)
 	return (len_b);
 }
 
-/*
-**	Return functions :
-*/
 int		out(t_out type, int fd, char **line, t_file *files)
 {
 	if (type == error)
@@ -80,9 +71,6 @@ int		out(t_out type, int fd, char **line, t_file *files)
 	return (-1);
 }
 
-/*
-**	Principal function :
-*/
 int		get_next_line(int fd, char **line)
 {
 	static t_file		f[MAX_FD] = {{ 0, { 0 }, 0, 0, 0 }};
