@@ -6,7 +6,7 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 02:53:56 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/20 22:03:00 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/21 09:14:47 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-# define MAX_FD		256	
+# define MAX_FD		256
 
 typedef enum		e_out
 {

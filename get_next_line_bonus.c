@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/15 11:38:24 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/25 21:06:55 by fcadet           ###   ########.fr       */
+/*   Created: 2019/10/25 22:34:33 by fcadet            #+#    #+#             */
+/*   Updated: 2019/10/25 22:34:45 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		cat_buf(char **line, t_file *file)
 
 	len_a = 0;
 	while ((*line)[len_a])
-		len_a++;	
+		len_a++;
 	len_b = 0;
 	while (file->buf_i + len_b < file->buf_sz
 		&& file->buf[file->buf_i + len_b] != '\n')
@@ -42,7 +42,7 @@ int		cat_buf(char **line, t_file *file)
 	free(*line);
 	j = -1;
 	while (++j < len_b)
-		new[i + j] = file->buf[file->buf_i + j];		
+		new[i + j] = file->buf[file->buf_i + j];
 	new[i + j] = '\0';
 	*line = new;
 	return (len_b);
@@ -53,7 +53,6 @@ int		out(t_out type, int fd, char **line, t_file *files)
 	if (type == error)
 	{
 		free(*line);
-		*line = NULL;
 		return (-1);
 	}
 	if (type == eol)
@@ -63,8 +62,6 @@ int		out(t_out type, int fd, char **line, t_file *files)
 	}
 	if (type == eof)
 	{
-		free(*line);
-		*line = NULL;
 		files[fd].used = 0;
 		return (0);
 	}
@@ -75,7 +72,7 @@ int		get_next_line(int fd, char **line)
 {
 	static t_file		f[MAX_FD] = {{ 0, { 0 }, 0, 0, 0 }};
 
-	if (BUFFER_SIZE < 1 || fd < 0 || fd >= MAX_FD || !line 
+	if (BUFFER_SIZE < 1 || fd < 0 || fd >= MAX_FD || !line
 		|| !(*line = malloc(sizeof(char))))
 		return (-1);
 	**line = '\0';

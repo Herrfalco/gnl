@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/20 15:39:11 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/25 21:11:36 by fcadet           ###   ########.fr       */
+/*   Created: 2019/10/25 22:35:03 by fcadet            #+#    #+#             */
+/*   Updated: 2019/10/25 22:35:34 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	init_file(t_file *file, int fd)
+void		init_file(t_file *file, int fd)
 {
 	file->fd = fd;
 	file->buf_sz = BUFFER_SIZE;
@@ -29,7 +29,7 @@ int			cat_buf(char **line, t_file *file)
 
 	len_a = 0;
 	while ((*line)[len_a])
-		len_a++;	
+		len_a++;
 	len_b = 0;
 	while (file->buf_i + len_b < file->buf_sz
 		&& file->buf[file->buf_i + len_b] != '\n')
@@ -42,13 +42,13 @@ int			cat_buf(char **line, t_file *file)
 	free(*line);
 	j = -1;
 	while (++j < len_b)
-		new[i + j] = file->buf[file->buf_i + j];		
+		new[i + j] = file->buf[file->buf_i + j];
 	new[i + j] = '\0';
 	*line = new;
 	return (len_b);
 }
 
-int		out(t_out type, char **line, t_file *file)
+int			out(t_out type, char **line, t_file *file)
 {
 	if (type == error)
 	{
