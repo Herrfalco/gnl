@@ -6,7 +6,7 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 02:53:56 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/20 22:01:12 by fcadet           ###   ########.fr       */
+/*   Updated: 2019/10/27 14:46:23 by herrfalco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef enum		e_out
 typedef struct		s_file
 {
 	int				fd;
-	char			buf[BUFFER_SIZE];
+	char			buf[BUFFER_SIZE > 0 ? BUFFER_SIZE : 1];
 	int				buf_i;
 	int				buf_sz;
 	int				cat_sz;
