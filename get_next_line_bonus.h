@@ -6,7 +6,7 @@
 /*   By: fcadet <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 02:53:56 by fcadet            #+#    #+#             */
-/*   Updated: 2019/10/27 14:51:54 by herrfalco        ###   ########.fr       */
+/*   Updated: 2019/10/28 12:11:26 by fcadet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ typedef struct		s_file
 	int				cat_sz;
 }					t_file;
 
-void		init_file(t_file *files, int fd);
-int			cat_buf(char **line, t_file *file);
-int			out(t_out type, int fd, char **line, t_file *files);
-int			get_next_line(int fd, char **line);
+void				init_file(t_file *files, int fd);
+int					cat_buf(char **line, t_file *file);
+int					out(t_out type, int fd, char **line, t_file *files);
+int					get_next_line(int fd, char **line);
 
 #endif
